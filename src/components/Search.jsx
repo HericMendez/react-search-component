@@ -14,8 +14,8 @@ const Search = (props) => {
   console.log("mock:", mockdata);
   return (
     <>
-      <div className="w-[400px] mx-auto p-8">
-        <form>
+      <div className="mx-auto p-8">
+        <form className="py-8">
           <label
             for="default-search"
             className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
@@ -56,21 +56,42 @@ const Search = (props) => {
           </div>
         </form>
         <div className="mx-auto text-center p-4">
-          {mockdata
-            .filter((value) => {
-              if (searchTerm == "") {
-                return value;
-              } else if (
-                value.first_name
-                  .toLowerCase()
-                  .includes(searchTerm.toLowerCase())
-              ) {
-                return value;
-              }
-            })
-            .map((filteredValue, key) => {
-              return <p key={key}>{filteredValue.first_name}</p>;
-            })}
+          <table className="w-['80vw']">
+            <tr className="text-justify  justify-between align-center p-8">
+              <th>Name</th>
+              <th className="text-right">Email</th>
+
+            </tr>
+            {mockdata
+              .filter((value) => {
+                if (searchTerm == "") {
+                  return value;
+                } else if (
+                  value.first_name
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase()) ||
+                  value.last_name
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase()) ||
+                  value.email.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {
+                  return value;
+                }
+              })
+              .map((filteredValue, key) => {
+                return (
+                  <tr
+                    className="text-justify  justify-between align-center p-8 border-y-2 border-gray-300"
+                    key={key}
+                  >
+                    <td className="py-4 text-left">
+                      {filteredValue.first_name} {filteredValue.last_name}{" "}
+                    </td>
+                    <td className="py-2 text-right">{filteredValue.email} </td>
+                  </tr>
+                );
+              })}
+          </table>
         </div>
       </div>
     </>
@@ -80,10 +101,10 @@ const Search = (props) => {
 export default Search;
 
 /*
-        <div className="mx-auto">
-        {mockdata.map((value, key)=>{
-          return (<p>{value.id}</p>)
-        })}
-      </div>
-
-*/
+  
+              <p key={key}>
+                  Name: {filteredValue.first_name} {filteredValue.last_name}{" "}
+                  email: {filteredValue.email}
+                </p> 
+ 
+ */
