@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import DisplayItem from "./DisplayItem";
 
 const Search = (props) => {
   const [mockdata, setMockdata] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+
 
   useEffect(() => {
     setMockdata(props.data);
@@ -10,11 +12,12 @@ const Search = (props) => {
   const onChangeHandler = (event) => {
     setSearchTerm(event.target.value);
   };
-  console.log("props:", props.data);
-  console.log("mock:", mockdata);
+
+
+
   return (
     <>
-      <div className="mx-auto p-8">
+      <div className="mx-auto text-center p-8">
         <form className="py-8">
           <label
             for="default-search"
@@ -60,39 +63,31 @@ const Search = (props) => {
             <tr className="text-justify  justify-between align-center p-8">
               <th>Name</th>
               <th className="text-right">Email</th>
-
             </tr>
             {mockdata
-              .filter((value) => {
+              .filter((values) => {
                 if (searchTerm == "") {
-                  return value;
+                  return values;
                 } else if (
-                  value.first_name
+                  values.first_name
                     .toLowerCase()
                     .includes(searchTerm.toLowerCase()) ||
-                  value.last_name
+                  values.last_name
                     .toLowerCase()
                     .includes(searchTerm.toLowerCase()) ||
-                  value.email.toLowerCase().includes(searchTerm.toLowerCase())
+                  values.email.toLowerCase().includes(searchTerm.toLowerCase())
                 ) {
-                  return value;
+                  return values;
                 }
               })
-              .map((filteredValue, key) => {
-                return (
-                  <tr
-                    className="text-justify  justify-between align-center p-8 border-y-2 border-gray-300"
-                    key={key}
-                  >
-                    <td className="py-4 text-left">
-                      {filteredValue.first_name} {filteredValue.last_name}{" "}
-                    </td>
-                    <td className="py-2 text-right">{filteredValue.email} </td>
-                  </tr>
-                );
+             .map((filteredValues, key) => {
+                
+                return <DisplayItem key={key} value={filteredValues} />;
               })}
           </table>
+          
         </div>
+
       </div>
     </>
   );
@@ -100,11 +95,4 @@ const Search = (props) => {
 
 export default Search;
 
-/*
-  
-              <p key={key}>
-                  Name: {filteredValue.first_name} {filteredValue.last_name}{" "}
-                  email: {filteredValue.email}
-                </p> 
- 
- */
+
