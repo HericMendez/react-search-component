@@ -15,7 +15,7 @@ function App() {
   }, []);
 
   return (
-    <div className="flex justify-center align-middle flex-col">
+    <div className="flex justify-center align-middle flex-col mx-8 ">
       <Table data={MockData}/>
     </div>
   );

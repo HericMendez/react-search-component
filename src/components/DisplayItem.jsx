@@ -3,7 +3,7 @@ import React from "react";
 const DisplayItem = (props) => {
   return (
     <>
-      <div class="search">
+      <div >
         <form className="py-8">
           <label
             for="default-search"
@@ -11,7 +11,7 @@ const DisplayItem = (props) => {
           >
             Search
           </label>
-          <div className="relative">
+          <div className="relative w-[50vw] mx-auto">
             <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
               <svg
                 className="w-5 h-5 text-gray-500 dark:text-gray-400"
@@ -45,11 +45,12 @@ const DisplayItem = (props) => {
           </div>
         </form>
       </div>
-      <table className="">
+      <table className="border-4 rounded-xl relative w-[80vw] mx-auto">
+
         <thead>
           <tr>{props.headRow}</tr>
         </thead>
-        <tbody className="trover">{props.tableData}</tbody>
+        <tbody className="">{props.tableData}</tbody>
       </table>
     </>
   );

@@ -5,10 +5,12 @@ import Pagination from "rc-pagination";
 import "rc-pagination/assets/index.css";
 import DisplayItem from "./DisplayItem";
 
+
 const tableHead = {
   first_name: "First Name",
   last_name: "Last name",
   email: "Email",
+
 };
 
 const Table = (props) => {
@@ -18,14 +20,18 @@ const Table = (props) => {
   const [collection, setCollection] = useState(
     cloneDeep(props.data.slice(0, countPerPage))
   );
-const onChangeHandler = (e) => setValue(e.target.value)
+  const onChangeHandler = (e) => setValue(e.target.value);
   const searchData = useRef(
     throttle((val) => {
       const query = val.toLowerCase();
       setCurrentPage(1);
+
+      const fullString = (val.first_name +val.last_name)
+      console.log(fullString)
+
       const data = cloneDeep(
         props.data
-          .filter((item) => item.first_name.toLowerCase().indexOf(query) > -1)
+          .filter((item) => item.first_name.toLowerCase().indexOf(query)  > -1)
           .slice(0, countPerPage)
       );
 
@@ -51,17 +57,17 @@ const onChangeHandler = (e) => setValue(e.target.value)
   const tableRows = (rowData) => {
     const { key, index } = rowData;
     const tableCell = Object.keys(tableHead);
-    console.log(tableCell);
+
     const columnData = tableCell.map((keyD, i) => {
       return (
-        <td className="py-4 text-left" key={i}>
+        <td className="py-4 px-4 border-2  text-justify" key={i}>
           {key[keyD]}
         </td>
       );
     });
     return (
       <tr
-        className="text-justify  justify-between align-center p-8 border-y-2 border-gray-300"
+        className=" p-8 "
         key={index}
       >
         {columnData}
@@ -75,13 +81,17 @@ const onChangeHandler = (e) => setValue(e.target.value)
 
   const headRow = () => {
     return Object.values(tableHead).map((title, index) => (
-      <td key={index}>{title}</td>
+      <td className="text-justify border-2 p-4 bg-blue-400" key={index}>{title}</td>
     ));
   };
 
   return (
     <>
-<DisplayItem headRow={headRow()} tableData={tableData()} onChangeHandler={onChangeHandler}/> 
+      <DisplayItem
+        headRow={headRow()}
+        tableData={tableData()}
+        onChangeHandler={onChangeHandler}
+      />
       <div className="mx-auto p-8">
         <Pagination
           pageSize={countPerPage}
@@ -93,10 +103,5 @@ const onChangeHandler = (e) => setValue(e.target.value)
     </>
   );
 };
-export default Table
 
-/*
-onChangeHandler
-headRow()
-tableData()
-*/
+export default Table;
