@@ -6,14 +6,20 @@ import "rc-pagination/assets/index.css";
 import DisplayItem from "./DisplayItem";
 
 
+
 const tableHead = {
-  first_name: "First Name",
-  last_name: "Last name",
-  email: "Email",
+
+  full_name: "Name",
+  title: "Job Title",
+  company: "Company Name",
+  email: "Email Address",
+
+
 
 };
 
 const Table = (props) => {
+  console.log(props)
   const countPerPage = 10;
   const [value, setValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,12 +32,11 @@ const Table = (props) => {
       const query = val.toLowerCase();
       setCurrentPage(1);
 
-      const fullString = (val.first_name +val.last_name)
-      console.log(fullString)
+     
 
       const data = cloneDeep(
         props.data
-          .filter((item) => item.first_name.toLowerCase().indexOf(query)  > -1)
+          .filter((item) => item.full_name.toLowerCase().indexOf(query)  > -1)
           .slice(0, countPerPage)
       );
 
